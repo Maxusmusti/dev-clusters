@@ -25,7 +25,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ./run_toolbox.py nfd_operator deploy_from_operatorhub
 ./run_toolbox.py gpu_operator deploy_from_operatorhub
-./run_toolbox.py cluster deploy_operator redhat-operators rhods-operator all
+./run_toolbox.py cluster deploy_operator redhat-operators rhods-operator all #Remove this line to skip RHODS installation
 #./run_toolbox.py rhods wait_ods
 deactivate -f
 cd ..
