@@ -4,7 +4,6 @@ cluster_single-master:
 	@make config_new_install
 	@make config_single-master
 	@make config_dev
-	@make diff
 	@make manifest
 	@make manifest_single-master
 	@make install
@@ -23,7 +22,7 @@ config_dev:
 	yq -yi '.controlPlane.platform.aws.type="m5.4xlarge"' "${CLUSTER_PATH}/install-config.yaml"
 
 manifest_single-master:
-	cp -v "${SINGLE_MASTER_MANIFESTS}" "${SINGLE_MASTER_DST}"
+	cp -v ${SINGLE_MASTER_MANIFESTS} ${SINGLE_MASTER_DST}
 	cat "${SINGLE_MASTER_CVO_OVERRIDE}" >> "${CLUSTER_PATH}/manifests/cvo-overrides.yaml"
 
 install_single-master_fix-authentication:

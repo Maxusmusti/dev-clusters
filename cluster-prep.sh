@@ -4,8 +4,10 @@ set -o pipefail
 set -o errexit
 set -o nounset
 
+KUBECONFIG=${KUBECONFIG:-}
+
 if [[ -z "${KUBECONFIG}" ]]; then
-    echo "ENV variable KUBECONFIG not set, required"
+    echo "ENV variable KUBECONFIG not set, required. Please see command above."
     exit 1
 else
     echo -n "Proceed with KUBECONFIG=${KUBECONFIG}? (y/[n]): "
@@ -23,8 +25,8 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ./run_toolbox.py nfd_operator deploy_from_operatorhub
 ./run_toolbox.py gpu_operator deploy_from_operatorhub
-./run_toolbox.py rhods deploy_ods quay.io/modh/qe-catalog-source latest
-./run_toolbox.py rhods wait_ods
+./run_toolbox.py cluster deploy_operator redhat-operators rhods-operator all
+#./run_toolbox.py rhods wait_ods
 deactivate -f
 cd ..
 rm -rf ci-artifacts
@@ -55,12 +57,12 @@ rm -rf multi-cluster-app-dispatcher
 
 # INSTASCALE
 git clone https://github.com/project-codeflare/instascale.git
-cd deployment/
+cd instascale/deployment/
 oc apply -f instascale-sa.yaml
 oc apply -f instascale-clusterrole.yaml
 oc apply -f instascale-clusterrolebinding.yaml
 oc apply -f deployment.yaml
-cd ..
+cd ../..
 rm -rf instascale
 
 # RAY (via KubeRay Operator)

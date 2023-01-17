@@ -68,13 +68,13 @@ kubeconfig:
 	  exit 1;\
 	fi
 
-	@echo "Command:"
+	@echo "Command to set KUBECONFIG:"
 	@echo "export KUBECONFIG=${CLUSTER_PATH}/auth/kubeconfig"
-	@echo "project ${CLUSTER_NAME}"
+	@echo "project: ${CLUSTER_NAME}"
 
 dev-setup: kubeconfig
-	chmod +x cluster-prep.sh
-	./clusterprep.sh
+	@chmod +x cluster-prep.sh
+	./cluster-prep.sh
 
 uninstall: has_installer
 	@if [ ! -d "${CLUSTER_PATH}/" ]; then \
