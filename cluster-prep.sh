@@ -59,6 +59,7 @@ rm -rf multi-cluster-app-dispatcher
 # INSTASCALE
 git clone https://github.com/project-codeflare/instascale.git
 cd instascale/deployment/
+oc apply -f instascale-configmap.yaml
 oc apply -f instascale-sa.yaml
 oc apply -f instascale-clusterrole.yaml
 oc apply -f instascale-clusterrolebinding.yaml
