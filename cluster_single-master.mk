@@ -18,8 +18,8 @@ config_single-master:
 
 config_dev:
 	yq -yi '.compute[0].replicas=1' "${CLUSTER_PATH}/install-config.yaml"
-	yq -yi '.compute[0].platform.aws.type="m5.4xlarge"' "${CLUSTER_PATH}/install-config.yaml"
-	yq -yi '.controlPlane.platform.aws.type="m5.4xlarge"' "${CLUSTER_PATH}/install-config.yaml"
+	yq -yi '.compute[0].platform.aws.type="m6i.4xlarge"' "${CLUSTER_PATH}/install-config.yaml"
+	yq -yi '.controlPlane.platform.aws.type="m6i.2xlarge"' "${CLUSTER_PATH}/install-config.yaml"
 
 manifest_single-master:
 	cp -v ${SINGLE_MASTER_MANIFESTS} ${SINGLE_MASTER_DST}

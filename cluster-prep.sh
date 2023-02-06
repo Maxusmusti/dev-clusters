@@ -25,6 +25,9 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ./run_toolbox.py nfd_operator deploy_from_operatorhub
 ./run_toolbox.py gpu_operator deploy_from_operatorhub
+oc create ns redhat-ods-operator --dry-run=client -oyaml | oc apply -f- #Remove this line if skipping RHODS installation
+oc create ns redhat-ods-applications --dry-run=client -oyaml | oc apply -f- #Remove this line if skipping RHODS installation
+oc create ns redhat-ods-monitoring --dry-run=client -oyaml | oc apply -f- #Remove this line if skipping RHODS installation
 oc create namespace "anonymous" -oyaml --dry-run=client | oc apply -f- #Remove this line if skipping RHODS installation
 ./run_toolbox.py cluster deploy_operator redhat-operators rhods-operator all #Remove this line to skip RHODS installation
 #./run_toolbox.py rhods wait_ods
@@ -52,7 +55,7 @@ fi
 git clone https://github.com/project-codeflare/multi-cluster-app-dispatcher.git 
 helm list -n kube-system
 cd multi-cluster-app-dispatcher/deployment/mcad-controller/
-helm upgrade --install --wait mcad . --namespace kube-system --set loglevel=4 --set image.repository=darroyo/mcad-controller --set image.tag=quota-management-v1.29.40 --set image.pullPolicy=Always --set configMap.name=mcad-controller-configmap --set configMap.quotaEnabled='"false"' --set coscheduler.rbac.apiGroup="scheduling.sigs.k8s.io" --set coscheduler.rbac.resource="podgroups"
+helm upgrade --install --wait mcad . --namespace kube-system --set loglevel=4 --set image.repository=quay.io/project-codeflare/mcad-controller --set image.tag=main-v1.29.50 --set image.pullPolicy=Always --set configMap.name=mcad-controller-configmap --set configMap.quotaEnabled='"false"' --set coscheduler.rbac.apiGroup="scheduling.sigs.k8s.io" --set coscheduler.rbac.resource="podgroups"
 cd ../../..
 rm -rf multi-cluster-app-dispatcher
 
