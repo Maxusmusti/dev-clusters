@@ -83,3 +83,11 @@ oc delete clusterrolebinding kuberay-operator
 oc create clusterrolebinding kuberay-operator --clusterrole=cluster-admin --user="system:serviceaccount:ray-system:kuberay-operator"
 cd ../../../../../..
 rm -rf multi-cluster-app-dispatcher
+
+# Custom Notebook Image
+# NOTE: COMMENT OUT FULL BLOCK IF NOT INSTALLING RHODS ABOVE
+git clone https://github.com/project-codeflare/codeflare-sdk.git
+cd codeflare-sdk/custom-nb-image
+oc apply -f imagestream.yaml -n redhat-ods-applications
+cd ../..
+rm -rf codeflare-sdk
