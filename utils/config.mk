@@ -4,7 +4,7 @@ CLUSTER_PATH ?= ${PWD}/clusters/${CLUSTER_NAME}
 
 ENTITLEMENT_PEM ?= #Unused
 
-OCP_VERSION ?= 4.11.0
+OCP_VERSION ?= 4.13.0
 
 # --- #
 
