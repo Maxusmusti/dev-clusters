@@ -1,5 +1,5 @@
 # https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-install-linux.tar.gz"
-# https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp-dev-preview/pre-release/openshift-install-linux.tar.gz"
+# https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp-dev-preview/pre-release/openshift-install-${LOCAL_OS}.tar.gz"
 
 SHELL=/usr/bin/env bash -o pipefail
 
@@ -9,9 +9,9 @@ ${OPENSHIFT_INSTALLER}:
 	@echo "Downloading it from: "
 	mkdir -p $$(dirname  "${OPENSHIFT_INSTALLER}")
 	wget --quiet "${OPENSHIFT_INSTALLER_URL}" && set -x \
-	&& tar xzf openshift-install-linux-${OCP_VERSION}.tar.gz openshift-install \
+	&& tar xzf openshift-install-${LOCAL_OS}-${OCP_VERSION}.tar.gz openshift-install \
 	&& mv openshift-install "${OPENSHIFT_INSTALLER}" \
-	&& rm openshift-install-linux-${OCP_VERSION}.tar.gz
+	&& rm openshift-install-${LOCAL_OS}-${OCP_VERSION}.tar.gz
 	test -e "${OPENSHIFT_INSTALLER}"
 
 manifest: has_installer
@@ -30,7 +30,7 @@ install: has_installer
 	time "${OPENSHIFT_INSTALLER}" create cluster --dir="${CLUSTER_PATH}" --log-level=debug 2>&1 | tee "${CLUSTER_PATH}/install.log"
 
 config_new_install: has_installer
-	@mkdir "${CLUSTER_PATH}" -p
+	@mkdir -p "${CLUSTER_PATH}"
 	@if [ -f "${INSTALL_CONFIG}" ]; then\
 	  echo "ERROR: ${INSTALL_CONFIG} already exists ...";\
 	  exit 1;\

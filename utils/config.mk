@@ -5,6 +5,7 @@ CLUSTER_PATH ?= ${PWD}/clusters/${CLUSTER_NAME}
 ENTITLEMENT_PEM ?= #Unused
 
 OCP_VERSION ?= 4.13.0
+LOCAL_OS ?= linux
 
 # --- #
 
@@ -35,7 +36,7 @@ SINGLE_MASTER_DST := ${CLUSTER_PATH}/manifests/
 # https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-4.6/
 
 OPENSHIFT_INSTALLER ?= ${UTILS_DIR}/installers/${OCP_VERSION}/openshift-install
-OPENSHIFT_INSTALLER_URL = "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${OCP_VERSION}/openshift-install-linux-${OCP_VERSION}.tar.gz"
+OPENSHIFT_INSTALLER_URL = "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/${OCP_VERSION}/openshift-install-${LOCAL_OS}-${OCP_VERSION}.tar.gz"
 
 # unset to skip diff confirmation in 'config_base_install'
 DIFF_TOOL := meld
